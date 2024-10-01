@@ -15,10 +15,13 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            padding: 20px; /* Added padding for mobile responsiveness */
         }
 
         h1 {
             color: #333;
+            text-align: center;
+            margin-bottom: 20px; /* Space below the header */
         }
 
         form {
@@ -27,8 +30,8 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
             width: 100%;
+            max-width: 400px; /* Limit the maximum width */
         }
 
         label {
@@ -63,19 +66,27 @@
             background-color: #218838;
         }
 
+        /* Wrapper for the table to enable scrolling */
+        .table-wrapper {
+            width: 100%;
+            max-width: 400px; /* Set a maximum width */
+            max-height: 300px; /* Set a maximum height */
+            overflow-y: auto; /* Enable vertical scrolling */
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white; /* Background for table wrapper */
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
             padding: 10px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
         }
 
         th {
@@ -87,35 +98,25 @@
             background-color: #f2f2f2;
         }
 
-        td {
-            border-bottom: 1px solid #ddd;
-        }
-
-        p {
-            background-color: #e2e3e5;
-            padding: 10px;
-            border-left: 4px solid #007bff;
-            border-radius: 4px;
-            color: #333;
-            max-width: 400px;
-        }
-
         /* Responsive design */
         @media (max-width: 600px) {
-            form, table {
+            form, .table-wrapper {
                 max-width: 100%;
                 width: 90%;
             }
+        }
+        .inputFild{
+        margin-right: 3%;
         }
     </style>
 </head>
 <body>
     <h1>Url Shortener</h1>
     <% if (locals.id) { %>
-     <p>Url Generated: <a href="http://localhost:3000/url/<%= id %>">http://localhost:3000/url/<%= id %></a></p>
+     <p>Url Generated: <a href="http://localhost:3000/<%= id %>">http://localhost:3000/<%= id %></a></p>
     <% } %>
     
-    <div>
+    <div class="inputFild">
         <form method="post" action="/url">
             <label>Enter Your Original Url</label>
             <input type="text" name="url" placeholder="https://example.com" required />
@@ -123,7 +124,7 @@
         </form>
     </div>
 
-    <div>
+    <div class="table-wrapper">
         <% if (locals.urls) { %>
             <table>
                 <thead>
@@ -131,7 +132,7 @@
                         <th>S.NO</th>
                         <th>ShortId</th>
                         <th>Redirect</th>
-                        <th>Clicks</th>
+                        <th>Click</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -147,6 +148,5 @@
             </table>
         <% } %>
     </div>
-    
 </body>
 </html>
