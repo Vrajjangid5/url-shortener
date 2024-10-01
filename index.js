@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express(); // Lowercase 'app' for consistency
 const PORT = 3000;
+const path = require('path');
 const { connectDB } = require('./connect');
 const URL = require('./models/url');
+const staticRouter = require("./routes/staticRoute");
 const urlRouter = require('./routes/url');
 
 // Connect to the MongoDB database
@@ -12,8 +14,18 @@ connectDB('mongodb://localhost:27017/short-url')
 
 // Import and use the URL router
 app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+app.set("view engine","ejs");
+app.set("views",path.resolve("./views"));
+
+
+
 app.use('/url', urlRouter);
-app.get('/:shortId',async(req,res)=>{
+
+app.use("/",staticRouter);
+
+
+app.get('/url/:shortId',async(req,res)=>{
     const ShortId = req.params.shortId;
     const entry  = await URL.findOneAndUpdate({shortId:ShortId},{
         $push:{

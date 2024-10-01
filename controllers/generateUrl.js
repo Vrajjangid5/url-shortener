@@ -15,9 +15,11 @@ async function generateUrl(req, res) {
             redirectUrl: body.url,
             visitHistory: [],
         });
-
+        return res.render("home",{
+            id:shortId,
+        });
         // Respond with the generated shortId
-        return res.send({ id: shortId });
+       // return res.send({ id: shortId });
     } catch (error) {
         // Handle potential errors
         console.error("Error creating URL:", error);
