@@ -8,5 +8,8 @@ router.get('/',async(req,res)=>{
         urls:allUrl,
     });
 })
+router.get("/signup",(req,res)=>{
+    return res.render("signUp");
+})
 
 module.exports = router

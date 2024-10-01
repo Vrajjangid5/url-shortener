@@ -6,6 +6,7 @@ const { connectDB } = require('./connect');
 const URL = require('./models/url');
 const staticRouter = require("./routes/staticRoute");
 const urlRouter = require('./routes/url');
+const userRoute = require('./routes/user');
 
 // Connect to the MongoDB database
 connectDB('mongodb://localhost:27017/short-url')
@@ -21,7 +22,7 @@ app.set("views",path.resolve("./views"));
 
 
 app.use('/url', urlRouter);
-
+app.use('/user',userRoute)
 app.use("/",staticRouter);
 
 
